@@ -52,7 +52,7 @@
 }
 
 \DeclareOption{dissertmst}{
-\def\@tipotrabalho{Tese de mestrado}
+\def\@tipotrabalho{Dissertação de Mestrado}
 \def\@worktype{Master Thesis}
 \def\@nivelPos{Mestre}
 \def\@niveltrabalho{dissertação}
@@ -78,7 +78,8 @@
 \RequirePackage{ae}
 \RequirePackage[T1]{fontenc}
 \RequirePackage[latin1]{inputenc}
-\RequirePackage[alf,abnt-emphasize=bf,abnt-repeated-author-omit=yes,abnt-year-extra-label=yes]{abntex2cite}	% Citações padrão ABNT
+\RequirePackage[alf,abnt-emphasize=bf,abnt-thesis-year=final]{abntex2cite}	% Citações padrão ABNT
+% overcite, abnt-repeated-author-omit=yes,
 \RequirePackage{color}	% Controle das cores
 \RequirePackage{pifont}
 \RequirePackage{lastpage}
@@ -93,12 +94,15 @@
 \setsecnumdepth{subsubsection}
 \settocdepth{subsection}
 
-\newsubfloat{figure}
+
+% Helder: Removido pq da problema com o contador do subfig
+%\newsubfloat{figure}
 
 
 
-
-
+%\renewcommand{\setcitebrackets}{\citebrackets[]
+\renewcommand{\citeopen}{(}
+\renewcommand{\citeclose}{)}
 
 % ---
 % Configurações de aparência do PDF final
@@ -113,8 +117,7 @@
 		%bookmarks=true,         		% show bookmarks bar?
 		pdftitle={\imprimirtitulo}, 
 		pdfauthor={\imprimirautor},
-    	pdfsubject={\imprimirpreambulo},
-		pdfkeywords={PALAVRAS}{CHAVES}{abnt}{abntex}{abntex2},
+		pdfkeywords={filtragem, ruído, mamografia, wavelet, BM3D, WTST},
 	    pdfproducer={LaTeX with abnTeX2}, 	% producer of the document
 	    pdfcreator={\imprimirautor},
     	colorlinks=true,       		% false: boxed links; true: colored links
@@ -124,6 +127,7 @@
 		urlcolor=black,
 		bookmarksdepth=4
 }
+
 % ---
 \newcommand{\rev}[1]{\textcolor{red}{[#1]}}
 \renewcommand{\labelitemi}{\ding{111}}
@@ -194,9 +198,8 @@
 }
 
 \preambulo{
-	\@tipotrabalho~apresentada ao Programa de Engenharia Elétrica
-	da Escola de Engenharia de São Carlos como parte dos requisitos para a
-	obtenção do título de \@nivelPos~em Ciências.
+	\@tipotrabalho~apresentada à Escola de Engenharia de São Carlos da Universidade de São Paulo como parte dos requisitos para a
+	obtenção do título de \@nivelPos~em Ciências, Programa de Engenharia Elétrica.
 }
 
 % ---
@@ -497,16 +500,28 @@
 
 
 \renewcommand{\textual}{%
+  % Helder: Alterei pq as paginas onde começava um capitulo estava com a numeracao da pagina
+  % Antigo:
+  %\pagestyle{abntheadings}
+  %\aliaspagestyle{}{abntchapfirst}% customizing chapter pagestyle
+  % <!--- Inicio
+  \aliaspagestyle{chapter}{empty}% customizing chapter pagestyle
   \pagestyle{abntheadings}
-  \aliaspagestyle{chapter}{abntchapfirst}% customizing chapter pagestyle
+  % FIM --->
   \aliaspagestyle{cleared}{eescchaplast}
   \aliaspagestyle{part}{eescchaplast}
   \nouppercaseheads
 }% Configura layout para elementos pós-textuais
 
 \renewcommand{\postextual}{
+  % Helder: Alterei pq as paginas onde começava um capitulo estava com a numeracao da pagina
+  % Antigo:
+  %\pagestyle{abntheadings}
+  %\aliaspagestyle{chapter}{abntchapfirst}
+  % <!--- Inicio
+  \aliaspagestyle{chapter}{empty}% customizing chapter pagestyle
   \pagestyle{abntheadings}
-  \aliaspagestyle{chapter}{abntchapfirst}
+  % FIM --->
   \aliaspagestyle{cleared}{eescchaplast}
   \aliaspagestyle{part}{eescpartlast}
 \aliaspagestyle{afterpart}{eescpartlast}
@@ -526,7 +541,8 @@
 % Configurações
 %=========================================================================
 % --- 
-\chapterstyle{madsen}
+% Helder - Estilo padrao madsen
+\chapterstyle{bianchi}
 
 % --- 
 \renewcommand*{\figureautorefname}{Figura}
